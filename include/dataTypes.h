@@ -44,6 +44,12 @@ struct TextAnim {
     const char* text;
 };
 
+struct Dice {
+    int x;
+    int y;
+    int side;
+};
+
 const int xmax = 300;
 const int xmaxlogo = 265;
 const int ymax = 110;

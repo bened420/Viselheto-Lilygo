@@ -7,6 +7,7 @@
 #include "dataTypes.h"
 #include "animations.h"
 #include "menu.h"
+#include "dice.h"
 
 #define TFT_BL 38
 #define TFT_POWER 15
@@ -29,9 +30,11 @@ Kobanyai beers[4];
 TTAT logo[4];
 Matrix mat[32];
 TextAnim textAnim;
+Dice kocka[2];
 
 const int matrixSize = 32;
 const int size = 4;
+const int kockasize = 2;
 
 unsigned long lastUpdate = 0;
 const int refreshRate = 1000/37;
@@ -78,7 +81,7 @@ void setup() {
 
     btn2.attachClick(buttonPressed);
     btn2.attachLongPressStart(buttonLongPressed);
-    btn.attachLongPressStop(startSleep);
+    btn.attachLongPressStart(startSleep);
 
     for (int i = 0; i < size ; i++) {
         beers[i].x = random(xmin,xmax);
@@ -114,7 +117,15 @@ void setup() {
     textAnim.speed = 3;
     textAnim.x = 0;
     textAnim.y = 70;
-    textAnim.text = "bALEK EKS";
+    textAnim.text = "PLACEHOLDER TEXT";
+
+    kocka[0].x=66;
+    kocka[0].y=50;
+    kocka[0].side=6;
+
+    kocka[1].x=66*3;
+    kocka[1].y=50;
+    kocka[1].side=6;
 }
 
 
@@ -147,7 +158,7 @@ void loop() {
                 }
                 break;
             case DICE:
-
+                drawDice(kocka,kockasize);
                 break;
             default:
              break;
@@ -168,6 +179,13 @@ static void buttonPressed() {
             currentMenu++;
         }else {
             currentMenu--;
+        }
+    }else {
+        for (int i = 0; i < 10; i++) {
+            delay(25);
+            kocka[0].side = random(1,7);
+            kocka[1].side = random(1,7);
+            drawDice(kocka,kockasize);
         }
     }
 

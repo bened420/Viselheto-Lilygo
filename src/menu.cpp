@@ -15,13 +15,13 @@ void drawMenu() {
         canvas.setTextColor(TFT_BLACK, TFT_WHITE);
         canvas.println("Animaciok");
         canvas.setTextColor(TFT_WHITE, TFT_BLACK);
-        canvas.println("Dobokockak (on the go pisont)");
+        canvas.println("Dobokockak 2D6");
     }else {
         canvas.setCursor(0, 0);
         canvas.setTextColor(TFT_WHITE, TFT_BLACK);
         canvas.println("Animaciok");
         canvas.setTextColor(TFT_BLACK, TFT_WHITE);
-        canvas.println("Dobokockak");
+        canvas.println("Dobokockak 2D6");
     }
 
     if (voltage > 4.0) {
