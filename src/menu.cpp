@@ -27,16 +27,15 @@ void drawMenu() {
     if (voltage > 4.0) {
         canvas.setCursor(5, 150);
         canvas.setTextColor(TFT_GREEN, TFT_BLACK);
-        canvas.print(voltage);
+        canvas.print("Charging");
     }else if (voltage > 3.5) {
         canvas.setCursor(5, 150);
-        canvas.setTextColor(TFT_YELLOW, TFT_BLACK);
+        canvas.setTextColor(TFT_GREEN, TFT_BLACK);
         canvas.print(voltage);
     }else {
         canvas.setCursor(5, 150);
         canvas.setTextColor(TFT_RED, TFT_BLACK);
         canvas.print(voltage);
-        canvas.print(" !!!");
     }
 
     canvas.pushSprite(0,0);

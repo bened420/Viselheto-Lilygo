@@ -83,6 +83,10 @@ void setup() {
     btn2.attachLongPressStart(buttonLongPressed);
     btn.attachLongPressStart(startSleep);
 
+    //If btn on pin 0 is nonfunctional then use this to initiate deep sleep
+    //Remember to change the startSleep function at the bottom
+    //btn2.attachClick(startSleep);
+
     for (int i = 0; i < size ; i++) {
         beers[i].x = random(xmin,xmax);
         beers[i].y = random(ymin,ymax);
@@ -211,3 +215,17 @@ static void startSleep() {
     delay(150);
     esp_deep_sleep_start();
 }
+
+//If double click is used, use this function instead
+/*
+static void startSleep() {
+    digitalWrite(TFT_BL, LOW);
+    tft.writecommand(ST7789_SLPIN);
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_14, 0);
+    while (digitalRead(14) == HIGH) {
+        delay(20);
+    }
+    delay(150);
+    esp_deep_sleep_start();
+}
+*/
