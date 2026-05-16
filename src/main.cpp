@@ -83,9 +83,10 @@ void setup() {
     btn2.attachLongPressStart(buttonLongPressed);
     btn.attachLongPressStart(startSleep);
 
+
     //If btn on pin 0 is nonfunctional then use this to initiate deep sleep
     //Remember to change the startSleep function at the bottom
-    //btn2.attachClick(startSleep);
+    //btn2.attachDoubleClick(startSleep);
 
     for (int i = 0; i < size ; i++) {
         beers[i].x = random(xmin,xmax);
