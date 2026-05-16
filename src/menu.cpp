@@ -6,8 +6,11 @@
 #define BAT_ADC_PIN 4
 
 void drawMenu() {
-    int adcValue = analogRead(BAT_ADC_PIN);
-    float voltage = (adcValue / 4095.0) * 3.3 * 2;
+    float voltage = 0;
+    for (int i = 0; i < 10; i++) {
+        voltage += (analogRead(BAT_ADC_PIN) / 4095.0) * 3.3 * 2;
+    }
+    voltage /= 10;
     canvas.fillSprite(TFT_BLACK);
     canvas.setTextSize(2);
     if (currentMenu == 0) {
@@ -23,6 +26,8 @@ void drawMenu() {
         canvas.setTextColor(TFT_BLACK, TFT_WHITE);
         canvas.println("Dobokockak 2D6");
     }
+
+
 
     if (voltage > 4.0) {
         canvas.setCursor(5, 150);
