@@ -18,7 +18,7 @@ A kód moduláris, különböző logók és animációk könnyen hozzáadhatóak
 ## Szükséges eszközök
 * LilyGo T-Display S3
 * Egy 8.5 x 20 x 40 mm méretű akkumulátor (vagy hasonló, ami pont befér a modul alá)
-* Egy 3D nyomtatott tok (https://makerworld.com/hu/models/2791160-lilygo-t-display-s3-case-battery-keychain#profileId-3103618)
+* Egy 3D nyomtatott tok (https://makerworld.com/hu/models/2812403-lilygo-t-display-s3-case-with-keychain-and-battery#profileId-3130575)
 
 ## Projekt futtatása
 * A projektet PlatformIO segítségével kell megnyitni CLion-ben vagy Visual Studio Code-ban.
