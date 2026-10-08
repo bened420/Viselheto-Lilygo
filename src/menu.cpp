@@ -11,37 +11,38 @@ void drawMenu() {
         voltage += (analogRead(BAT_ADC_PIN) / 4095.0) * 3.3 * 2;
     }
     voltage /= 10;
+
     canvas.fillSprite(TFT_BLACK);
     canvas.setTextSize(2);
+    canvas.setTextDatum(MC_DATUM);
+
     if (currentMenu == 0) {
-        canvas.setCursor(0, 0);
         canvas.setTextColor(TFT_BLACK, TFT_WHITE);
-        canvas.println("Animaciok");
+        canvas.drawString("Animaciok", 160, 60);
         canvas.setTextColor(TFT_WHITE, TFT_BLACK);
-        canvas.println("Dobokockak 2D6");
-    }else {
-        canvas.setCursor(0, 0);
+        canvas.drawString("Dobokockak", 160, 95);
+    } else {
         canvas.setTextColor(TFT_WHITE, TFT_BLACK);
-        canvas.println("Animaciok");
+        canvas.drawString("Animaciok", 160, 60);
         canvas.setTextColor(TFT_BLACK, TFT_WHITE);
-        canvas.println("Dobokockak 2D6");
+        canvas.drawString("Dobokockak", 160, 95);
     }
 
-
+    canvas.setTextDatum(TL_DATUM);
 
     if (voltage > 4.0) {
         canvas.setCursor(5, 150);
         canvas.setTextColor(TFT_GREEN, TFT_BLACK);
         canvas.print("Charging");
-    }else if (voltage > 3.5) {
+    } else if (voltage > 3.5) {
         canvas.setCursor(5, 150);
         canvas.setTextColor(TFT_GREEN, TFT_BLACK);
         canvas.print(voltage);
-    }else {
+    } else {
         canvas.setCursor(5, 150);
         canvas.setTextColor(TFT_RED, TFT_BLACK);
         canvas.print(voltage);
     }
 
-    canvas.pushSprite(0,0);
+    canvas.pushSprite(0, 0);
 }

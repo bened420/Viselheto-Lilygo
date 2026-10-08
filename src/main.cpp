@@ -9,6 +9,8 @@
 #include "menu.h"
 #include "dice.h"
 
+#define USE_SINGLE_BUTTON 0
+
 #define TFT_BL 38
 #define TFT_POWER 15
 #define TFT_VSYNC 9
@@ -17,7 +19,9 @@ TFT_eSPI tft = TFT_eSPI();
 TFT_eSprite canvas = TFT_eSprite(&tft);
 TFT_eSprite logoCanvas = TFT_eSprite(&tft);
 
+#if !USE_SINGLE_BUTTON
 OneButton btn;
+#endif
 OneButton btn2;
 
 Animation animation = ANIMATION_BEER;
@@ -67,11 +71,13 @@ void setup() {
     logoCanvas.setSwapBytes(false);
     logoCanvas.pushImage(0, 0, ttatw, ttath, ttat);
 
+#if !USE_SINGLE_BUTTON
     btn.setup(
         0,
         true,
         true
         );
+#endif
 
     btn2.setup(
         14,
@@ -81,12 +87,12 @@ void setup() {
 
     btn2.attachClick(buttonPressed);
     btn2.attachLongPressStart(buttonLongPressed);
+
+#if USE_SINGLE_BUTTON
+    btn2.attachDoubleClick(startSleep);
+#else
     btn.attachLongPressStart(startSleep);
-
-
-    //If btn on pin 0 is nonfunctional then use this to initiate deep sleep
-    //Remember to change the startSleep function at the bottom
-    //btn2.attachDoubleClick(startSleep);
+#endif
 
     for (int i = 0; i < size ; i++) {
         beers[i].x = random(xmin,xmax);
@@ -133,11 +139,12 @@ void setup() {
     kocka[1].side=6;
 }
 
-
 void loop() {
     unsigned long currentTime = millis();
     btn2.tick();
+#if !USE_SINGLE_BUTTON
     btn.tick();
+#endif
 
     if (currentTime - lastUpdate >= refreshRate) {
         switch (status) {
@@ -166,13 +173,11 @@ void loop() {
                 drawDice(kocka,kockasize);
                 break;
             default:
-             break;
+                break;
         }
 
         lastUpdate = currentTime;
-
     }
-
 }
 
 static void buttonPressed() {
@@ -193,7 +198,6 @@ static void buttonPressed() {
             drawDice(kocka,kockasize);
         }
     }
-
 }
 
 static void buttonLongPressed() {
@@ -206,27 +210,17 @@ static void buttonLongPressed() {
             status = DICE;
         }
     }
-
 }
 
 static void startSleep() {
     digitalWrite(TFT_BL, LOW);
     tft.writecommand(ST7789_SLPIN);
     esp_sleep_enable_ext0_wakeup(GPIO_NUM_14, 0);
-    delay(150);
-    esp_deep_sleep_start();
-}
-
-//If double click is used, use this function instead
-/*
-static void startSleep() {
-    digitalWrite(TFT_BL, LOW);
-    tft.writecommand(ST7789_SLPIN);
-    esp_sleep_enable_ext0_wakeup(GPIO_NUM_14, 0);
+#if USE_SINGLE_BUTTON
     while (digitalRead(14) == HIGH) {
         delay(20);
     }
+#endif
     delay(150);
     esp_deep_sleep_start();
 }
-*/
